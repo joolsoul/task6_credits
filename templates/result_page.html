@@ -1,0 +1,30 @@
+{% extends "base_page.html" %}
+{% block content %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Номер платежа</th>
+        <th>Сумма платежа</th>
+        <th>Основной долг</th>
+        <th>Проценты</th>
+        <th>Остаток долга</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payment in payments %}
+        <tr>
+          <td>{{ payment.payment_number }}</td>
+          <td>{{ payment.payment_sum }}</td>
+          <td>{{ payment.principal_credit }}</td>
+          <td>{{ payment.percentages }}</td>
+          <td>{{ payment.remaining_credit }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    <div class="float-end">
+    {% block overpayment %}
+    Переплата: {{ overpayment }}
+    {% endblock %}
+    </div>
+{% endblock %}

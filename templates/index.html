@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,italic,700,900,900italic" rel="stylesheet" />
+    <title>Кредитный калькулятор</title>
+</head>
+<body>
+     <div class="auth">
+        <form action="/" method="post">
+            <div class="form-group">
+                <h3 class="input__name">Сумма кредита</h3>
+                <input class="input" type="text" name="loan_sum" placeholder="0">
+            </div>
+
+            <div class="form-group">
+                <h3 class="input__name">Период кредитования</h3>
+                <input class="input" type="text" name="loan_period" placeholder="0">
+            </div>
+
+            <div class="form-group">
+                <h3 class="input__name">Процентная ставка (годовая)</h3>
+                <input class="input" type="text" name="percentage_rate" placeholder="0">
+            </div>
+
+            <div class="form-groupp">
+                <h3 class="input__name">Тип платежей</h3>
+                <select class="select" name="payment_type">
+                    <option value="Annuity">Аннуитетный</option>
+                    <option value="Differentiated">Дифференцированный</option>
+                </select>
+            </div>
+            <button class="btn" type="submit">Рассчитать</button>
+        </form>
+
+    </div>
+
+</body>
+</html>
