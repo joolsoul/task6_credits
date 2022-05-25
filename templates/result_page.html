@@ -1,5 +1,13 @@
 {% extends "base_page.html" %}
 {% block content %}
+    <div class="float-start">
+    {% block info %}
+    Сумма кредита: {{ loan_sum }};
+    Период кредитования (в месяцах): {{ loan_period }};
+    Процентная ставка (годовая): {{ percentage_rate }}%;
+    Тип платежей: {{ payment_type }};
+    {% endblock %}
+    </div>
   <table id="data" class="table table-striped">
     <thead>
       <tr>

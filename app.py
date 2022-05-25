@@ -121,32 +121,34 @@ class Payment():
         self.remaining_credit = remaining_credit
 
 
-@app.route('/result')
+@app.route('/result', methods=['GET', 'POST'])
 def result():
-    CREDIT.calculate_payments()
-    payments = CREDIT.create_payments()
-    overpayment = CREDIT.calculate_overpayment()
-    return render_template('result_page.html', title='График платежей',
-                           payments=payments, overpayment=round(overpayment, 2))
+    if request.method == 'POST':
+        loan_sum = int(request.form.get('loan_sum'))
+        loan_period = int(request.form.get('loan_period'))
+        percentage_rate = int(request.form.get('percentage_rate'))
+        payment_type_str = request.form.get('payment_type')
+        if payment_type_str == 'Annuity':
+            payment_type = PaymentType.Annuity
+            payment_type_str = 'Аннуительный'
+        else:
+            payment_type = PaymentType.Differentiated
+            payment_type_str = 'Дифференцированный'
+
+        credit = Credit(loan_sum, loan_period, percentage_rate, payment_type)
+        credit.calculate_payments()
+        payments = credit.create_payments()
+        overpayment = credit.calculate_overpayment()
+
+        return render_template('result_page.html', title='График платежей',
+                               payments=payments, overpayment=round(overpayment, 2), loan_sum=loan_sum,
+                               loan_period=loan_period, percentage_rate=percentage_rate, payment_type=payment_type_str)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def start():
     if request.method == 'GET':
         return render_template('index.html')
-
-    loan_sum = int(request.form.get('loan_sum'))
-    loan_period = int(request.form.get('loan_period'))
-    percentage_rate = int(request.form.get('percentage_rate'))
-    payment_type = request.form.get('payment_type')
-    if payment_type == 'Annuity':
-        payment_type = PaymentType.Annuity
-    else:
-        payment_type = PaymentType.Differentiated
-
-    global CREDIT
-    CREDIT = Credit(loan_sum, loan_period, percentage_rate, payment_type)
-    return redirect(url_for('result'))
 
 
 if __name__ == '__main__':
